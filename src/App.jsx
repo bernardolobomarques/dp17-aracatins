@@ -6,6 +6,7 @@ function App() {
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('welcome');
   const [secretInput, setSecretInput] = useState('');
+  const [showTutorial, setShowTutorial] = useState(true);
 
   const handleLogin = () => {
     // 2009447 é o nº do BO do Ato 1
@@ -24,6 +25,8 @@ function App() {
     }
   };
 
+  const closeTutorial = () => setShowTutorial(false);
+
   return (
     <div className="dp-container">
       <div className="window">
@@ -31,6 +34,21 @@ function App() {
           <h1>SISP - Sistema de Informações de Segurança do Paraná</h1>
           <span>_ [ ] X</span>
         </div>
+
+        {showTutorial && (
+          <div className="popup-overlay">
+            <div className="popup-content">
+              <h2>📁 Arquivo Digital DP17</h2>
+              <p>Bem-vindo ao acervo do Sistema de Autenticação da Polícia Civil.</p>
+              <ul>
+                <li>Para acessar o inquérito, encontre a chave de numeração (Senha) no <strong>Boletim de Ocorrência original impresso</strong>.</li>
+                <li>Aqui você encontra laudos visuais (fotos da cena) que não foram impressos.</li>
+                <li>Ao final da sua investigação física e digital, você deve retornar aqui e indiciar o nome do Mandante.</li>
+              </ul>
+              <button onClick={closeTutorial} className="btn-retro" style={{width: '100%', marginTop: '15px'}}>ACESSAR ARQUIVO</button>
+            </div>
+          </div>
+        )}
 
         <div className="window-content">
           {!isAuthenticated ? (
