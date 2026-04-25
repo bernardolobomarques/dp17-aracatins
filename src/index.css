@@ -1,0 +1,25 @@
+:root {
+  --bg-color: #000080; /* Windows 95 blue */
+  --window-bg: #c0c0c0;
+  --window-border-light: #ffffff;
+  --window-border-dark: #808080;
+  --window-border-xdark: #000000;
+  --text-main: #000000;
+  --text-light: #ffffff;
+  --font-retro: 'VT323', monospace;
+  --font-sans: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+* { box-sizing: border-box; }
+
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: var(--window-bg); border: 1px solid var(--window-border-dark); }
