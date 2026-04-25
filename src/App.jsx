@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -6,12 +6,14 @@ function App() {
   const [password, setPassword] = useState('');
   const [activeTab, setActiveTab] = useState('welcome');
   const [secretInput, setSecretInput] = useState('');
-  const [showTutorial, setShowTutorial] = useState(true);
+  const [bootStep, setBootStep] = useState(0);
 
   const handleLogin = () => {
     // 2009447 é o nº do BO do Ato 1
     if (password === '2009447') {
       setIsAuthenticated(true);
+      // Salva progresso no HUB
+      localStorage.setItem('ev_boletim', 'true');
     } else {
       alert("ACESSO NEGADO. Senha incorreta.");
     }
@@ -32,7 +34,23 @@ function App() {
     }
   };
 
-  const closeTutorial = () => setShowTutorial(false);
+  useEffect(() => {
+    if (bootStep < 2) {
+      const timer = setTimeout(() => setBootStep(prev => prev + 1), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [bootStep]);
+
+  if (bootStep < 2) {
+    return (
+      <div className="dp-container" style={{backgroundColor: '#000', color: '#0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)'}}>
+        <div style={{fontSize: '1.2rem'}}>
+          {bootStep === 0 && '> SISTEMA REINICIADO — ÚLTIMO ACESSO: 2011-03-14'}
+          {bootStep === 1 && '> REPOSITÓRIO SISP REATIVADO POR ORDEM JUDICIAL.'}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dp-container">
@@ -42,25 +60,10 @@ function App() {
           <span>_ [ ] X</span>
         </div>
 
-        {showTutorial && (
-          <div className="popup-overlay">
-            <div className="popup-content">
-              <h2>📁 Arquivo Digital DP17</h2>
-              <p>Bem-vindo ao acervo do Sistema de Autenticação da Polícia Civil.</p>
-              <ul>
-                <li>Para acessar o inquérito, encontre a chave de numeração (Senha) no <strong>Boletim de Ocorrência original impresso</strong>.</li>
-                <li>Aqui você encontra laudos visuais (fotos da cena) que não foram impressos.</li>
-                <li>Ao final da sua investigação física e digital, você deve retornar aqui e indiciar o nome do Mandante.</li>
-              </ul>
-              <button onClick={closeTutorial} className="btn-retro" style={{width: '100%', marginTop: '15px'}}>ACESSAR ARQUIVO</button>
-            </div>
-          </div>
-        )}
-
         <div className="window-content">
           {!isAuthenticated ? (
             <div className="login-box">
-              <img src="../../images/9.png" alt="Polícia PR" width="80" style={{marginBottom: '20px'}} />
+              <img src="./images/9.png" alt="Polícia PR" width="80" style={{marginBottom: '20px'}} />
               <h2>ARQUIVO MORTO</h2>
               <p>Insira a credencial do caso para acessar mídias digitais do B.O.</p>
               <input 
@@ -93,7 +96,7 @@ function App() {
                   <div>
                     <h2 className="document-title">FOTO DE CENA (GOL PRATA)</h2>
                     <div className="polaroid">
-                      <img src="../../images/6.png" alt="Carro abandonado" />
+                      <img src="./images/6.png" alt="Carro abandonado" />
                       <p style={{fontFamily: 'var(--font-retro)', fontSize: '1.2rem', textAlign: 'center'}}>Local do abandono - Veículo da vítima</p>
                     </div>
                   </div>
@@ -103,7 +106,7 @@ function App() {
                   <div>
                     <h2 className="document-title">PISTA DO ACOSTAMENTO</h2>
                     <div className="polaroid">
-                      <img src="../../images/7.png" alt="Isqueiro M" />
+                      <img src="./images/7.png" alt="Isqueiro M" />
                       <p style={{fontFamily: 'var(--font-retro)', fontSize: '1.2rem', textAlign: 'center'}}>Objeto encontrado com letra "M"</p>
                     </div>
                   </div>
