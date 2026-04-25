@@ -18,10 +18,17 @@ function App() {
   };
 
   const handleReveal = () => {
-    if (secretInput.toUpperCase() === 'LEMOS') {
-      setActiveTab('reveal');
+    const input = secretInput.trim().toUpperCase();
+    if (input === 'LEMOS' || input === 'CARLOS') {
+      setActiveTab('reveal-lemos');
+    } else if (input === 'SOUZA' || input === 'MARCELO') {
+      setActiveTab('reveal-marcelo');
+    } else if (input === 'FERNANDES' || input === 'LUCIA' || input === 'LÚCIA') {
+      setActiveTab('reveal-lucia');
+    } else if (input === 'ALVES' || input === 'BETO' || input === 'GRAXA') {
+      setActiveTab('reveal-graxa');
     } else {
-      alert("NOME INVÁLIDO. O mandante inserido não confere com nossas evidências focais.");
+      alert("NOME INVÁLIDO OU NÃO LISTADO NOS AUTOS.");
     }
   };
 
@@ -119,12 +126,44 @@ function App() {
                   </div>
                 )}
 
-                {activeTab === 'reveal' && (
-                  <div style={{background: '#ffffcc', padding: '15px', border: '1px solid #aaa'}}>
-                    <h2>CASO RESOLVIDO: O ERRO DO DR. CARLOS LEMOS</h2>
-                    <p>Parabéns Detetive. Você não se deixou enganar pelo isqueiro roubado nem pela saliva plantada no carro.</p>
-                    <p>A prova principal da queda do hospital GSS anula o único álibi perfeito do cirurgião.</p>
-                    <p>Acesse imediatamente a pasta de Vozes Escutadas (Vozes do Caso) e insira a decodificação "LEMOS" para liberar a Confissão Final do Ato 5.</p>
+                {activeTab === 'reveal-marcelo' && (
+                  <div className="verdict-card verdict-error">
+                    <h2>CASO ENCERRADO: ERRO DE INDICIAMENTO</h2>
+                    <p><strong>Marcelo Souza</strong> foi indiciado publicamente. No entanto, o promotor arquivou o caso na mesma semana.</p>
+                    <p>O advogado de defesa provou o óbvio: uma gota isolada de saliva no meio do banco do passageiro não sobrevive a uma luta de estrangulamento de 3 minutos sem estar acompanhada de gotículas de respingo ou poças de sangue decorrentes de asfixia mecânica. A evidência foi caracterizada no tribunal como <strong>"descaradamente forjada por coleta estática"</strong>.</p>
+                    <p>Sem o álibi verificado do relatório de horários do hospital, a polícia agiu por impulso prendendo o alvo óbvio... enquanto o verdadeiro mandante continua livre em Araçatins, bebendo sua garrafa de vinho intacta.</p>
+                    <button className="btn-retro" onClick={() => setActiveTab('fechar')} style={{marginTop: '15px'}}>REABRIR INVESTIGAÇÃO</button>
+                  </div>
+                )}
+
+                {activeTab === 'reveal-lucia' && (
+                  <div className="verdict-card verdict-blocked">
+                    <h2>CASO ENCERRADO: FALTA DE NEXO CAUSAL</h2>
+                    <p><strong>Lúcia Fernandes</strong> foi levada a julgamento. A promotoria tentou usar a confissão dela de roubo de pequenos valores da prefeitura como motivação para encobrir o crime.</p>
+                    <p>O fio de cabelo no porta-malas confirmou de fato que ela andou escondida no carro naquela noite e roubou pertences essenciais da vítima... Porém, Lúcia tem 1,58m e 55kg. O laudo do obituário aponta para fratura do osso hióide de Elisa, o que requer compressão bimanual agressiva de no mínimo 40kg de força motriz.</p>
+                    <p>O Ministério Público declarou <strong>"vício de conclusão material"</strong>. O Juiz absolveu Lúcia de homicídio e ela só respondeu pelo furto. A verdadeira pessoa que encomendou (e quem puxou a corda) continuam sorrindo pelas ruas de Araçatins.</p>
+                    <button className="btn-retro" onClick={() => setActiveTab('fechar')} style={{marginTop: '15px'}}>REABRIR INVESTIGAÇÃO</button>
+                  </div>
+                )}
+
+                {activeTab === 'reveal-graxa' && (
+                  <div className="verdict-card verdict-partial">
+                    <h2>CASO PARCIALMENTE ENCERRADO: O CÃO SEM O MESTRE</h2>
+                    <p><strong>Beto Graxa</strong> foi preso na porta de um contêiner no Porto Seco.</p>
+                    <p>Seu DNA recolhido do cigarro o colocou a exatos 4 metros da porta do carro. O assassinato cruento foi de fato executado por suas mãos calejadas de mecânico. No interrogatório policial, ele riu de todas as autoridades escarrando sangue: <em>"Vocês perdem o maior tempão das vidas de luxo de vocês caçando a sobra do prato, seus doutorzinho de bosta. Eu só recebi metade do cheque no adiantamento..."</em></p>
+                    <p>Meses depois, Beto foi esfaqueado 6 vezes no pátio da penitenciária estadual, poucas horas antes de assinar a delação premiada de quem pagou a ele para matar. O mandante que subornou o hospital municipal destruiu suas próprias evidências cibernéticas a tempo de seguir a vida impunemente. <strong>Você perdeu o chefe final.</strong></p>
+                    <button className="btn-retro" onClick={() => setActiveTab('fechar')} style={{marginTop: '15px'}}>TENTAR INDICIAMENTO DO MANDANTE</button>
+                  </div>
+                )}
+
+                {activeTab === 'reveal-lemos' && (
+                  <div className="verdict-card verdict-success">
+                    <h2>MANDADO DE PRISÃO PREVENTIVA DEFERIDO</h2>
+                    <p><strong>Dr. Carlos Lemos.</strong> Parabéns, Detetive.</p>
+                    <p>A petição de prisão foi embasada legalmente nas provas do próprio B.O que afirmavam um blackout na internet GSS antes as 23h, impossibilitando que o médico estivesse batendo ponto na nuvem do Hospital de Maneira sincronizada no momento da morte, um detalhe crucial de soberba que derrubou seu álibi temporal forjado.</p>
+                    <p>Perícia digital das impressoras da UTI validou que os logs vitais adulterados para "emendar" o desvio temporal provariam que estava forjando tempo livre, a qual o álibi se torna pó. Ao mandar matar a própria protegida pelas licitações, Lemos pecou com seu excesso de higiene local.</p>
+                    <h3 style={{color: '#000080', borderTop: '1px solid currentColor', paddingTop: '10px', marginTop: '15px'}}>INSTRUÇÃO FINAL</h3>
+                    <p>Acesse imediatamente o porta-arquivos das Escutas (Vozes do Caso) e insira o código <strong>"LEMOS"</strong> na chave decriptadora Master para ouvir a interceptação que fecha todo o loop criminal pela sua própria voz arruinada.</p>
                   </div>
                 )}
               </div>

@@ -164,3 +164,48 @@
   margin-bottom: 10px;
 }
 
+/* Verdict Cards (Múltiplos Finais) */
+.verdict-card {
+  padding: 20px;
+  border: 4px solid #000;
+  border-radius: 4px;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.verdict-card h2 {
+  text-transform: uppercase;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+.verdict-error {
+  background-color: #ffeaea;
+  color: #8b0000;
+  border-color: #8b0000;
+}
+
+.verdict-blocked {
+  background-color: #fffacd;
+  color: #b8860b;
+  border-color: #b8860b;
+}
+
+.verdict-partial {
+  background-color: #fff0f5;
+  color: #ff8c00;
+  border-color: #ff8c00;
+}
+.verdict-partial h2 { color: #8b4500; }
+
+.verdict-success {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+  border-color: #1b5e20;
+}
